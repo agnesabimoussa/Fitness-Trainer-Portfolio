@@ -1,0 +1,305 @@
+import { useState } from "react";
+import { COLORS } from "../constants/colors";
+import { useInView } from "../hooks/useInView";
+
+export function Contact() {
+  const [ref, inView] = useInView();
+  const [formState, setFormState] = useState({
+    name: "",
+    email: "",
+    goal: "Strength Gain",
+    message: "",
+  });
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+  };
+
+  const inputStyle = {
+    width: "100%",
+    background: COLORS.surfaceHigh,
+    border: "none",
+    borderBottom: `2px solid transparent`,
+    padding: "16px 20px",
+    borderRadius: 12,
+    fontFamily: "Manrope, sans-serif",
+    fontSize: 14,
+    color: COLORS.onSurface,
+    outline: "none",
+    transition: "border-color 0.2s",
+    boxSizing: "border-box",
+  };
+
+  return (
+    <section
+      id="contact"
+      ref={ref}
+      style={{
+        background: COLORS.surface,
+        padding: "120px 60px",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* BG accent */}
+      <div
+        style={{
+          position: "absolute",
+          top: "-20%",
+          right: "-15%",
+          width: "50%",
+          height: "70%",
+          background: `radial-gradient(ellipse, rgba(0,227,253,0.04) 0%, transparent 70%)`,
+          pointerEvents: "none",
+        }}
+      />
+
+      <div
+        style={{
+          maxWidth: 580,
+          margin: "0 auto",
+          position: "relative",
+          opacity: inView ? 1 : 0,
+          transform: inView ? "translateY(0)" : "translateY(40px)",
+          transition: "opacity 0.8s ease, transform 0.8s ease",
+        }}
+      >
+        <div style={{ textAlign: "center", marginBottom: 60 }}>
+          <h2
+            style={{
+              fontFamily: "Lexend, sans-serif",
+              fontWeight: 900,
+              fontSize: "clamp(36px, 5vw, 60px)",
+              letterSpacing: "-0.03em",
+              textTransform: "uppercase",
+              color: COLORS.onSurface,
+              marginBottom: 16,
+            }}
+          >
+            GET STARTED
+          </h2>
+          <p
+            style={{
+              fontFamily: "Manrope, sans-serif",
+              fontSize: 15,
+              color: COLORS.onSurfaceVariant,
+              lineHeight: 1.6,
+            }}
+          >
+            The first step is often the heaviest. Let's make it count.
+          </p>
+        </div>
+
+        {submitted ? (
+          <div
+            style={{
+              textAlign: "center",
+              padding: "60px 40px",
+              background: COLORS.surfaceLow,
+              borderRadius: 16,
+              border: `1px solid rgba(0,227,253,0.2)`,
+            }}
+          >
+            <div style={{ fontSize: 48, marginBottom: 20 }}>✓</div>
+            <h3
+              style={{
+                fontFamily: "Lexend, sans-serif",
+                fontWeight: 800,
+                fontSize: 24,
+                color: COLORS.secondary,
+                marginBottom: 12,
+              }}
+            >
+              Message Sent!
+            </h3>
+            <p
+              style={{
+                fontFamily: "Manrope, sans-serif",
+                fontSize: 14,
+                color: COLORS.onSurfaceVariant,
+              }}
+            >
+              I'll be in touch within 24 hours. Get ready to train.
+            </p>
+          </div>
+        ) : (
+          <form
+            onSubmit={handleSubmit}
+            style={{ display: "flex", flexDirection: "column", gap: 20 }}
+          >
+            <div>
+              <label
+                style={{
+                  fontFamily: "Manrope, sans-serif",
+                  fontSize: 9,
+                  fontWeight: 700,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: COLORS.primary,
+                  display: "block",
+                  marginBottom: 8,
+                  marginLeft: 4,
+                }}
+              >
+                Full Name
+              </label>
+              <input
+                type="text"
+                placeholder="Alex Mercer"
+                required
+                value={formState.name}
+                onChange={(e) =>
+                  setFormState({ ...formState, name: e.target.value })
+                }
+                style={inputStyle}
+                onFocus={(e) =>
+                  (e.target.style.borderBottomColor = COLORS.primary)
+                }
+                onBlur={(e) =>
+                  (e.target.style.borderBottomColor = "transparent")
+                }
+              />
+            </div>
+
+            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+              <div>
+                <label
+                  style={{
+                    fontFamily: "Manrope, sans-serif",
+                    fontSize: 9,
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: COLORS.primary,
+                    display: "block",
+                    marginBottom: 8,
+                    marginLeft: 4,
+                  }}
+                >
+                  Email
+                </label>
+                <input
+                  type="email"
+                  placeholder="alex@apex.com"
+                  required
+                  value={formState.email}
+                  onChange={(e) =>
+                    setFormState({ ...formState, email: e.target.value })
+                  }
+                  style={inputStyle}
+                  onFocus={(e) =>
+                    (e.target.style.borderBottomColor = COLORS.primary)
+                  }
+                  onBlur={(e) =>
+                    (e.target.style.borderBottomColor = "transparent")
+                  }
+                />
+              </div>
+              <div>
+                <label
+                  style={{
+                    fontFamily: "Manrope, sans-serif",
+                    fontSize: 9,
+                    fontWeight: 700,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: COLORS.primary,
+                    display: "block",
+                    marginBottom: 8,
+                    marginLeft: 4,
+                  }}
+                >
+                  Primary Goal
+                </label>
+                <select
+                  value={formState.goal}
+                  onChange={(e) =>
+                    setFormState({ ...formState, goal: e.target.value })
+                  }
+                  style={{ ...inputStyle, appearance: "none", cursor: "pointer" }}
+                  onFocus={(e) =>
+                    (e.target.style.borderBottomColor = COLORS.primary)
+                  }
+                  onBlur={(e) =>
+                    (e.target.style.borderBottomColor = "transparent")
+                  }
+                >
+                  <option>Strength Gain</option>
+                  <option>Fat Loss</option>
+                  <option>Athletic Performance</option>
+                  <option>Mobility & Recovery</option>
+                </select>
+              </div>
+            </div>
+
+            <div>
+              <label
+                style={{
+                  fontFamily: "Manrope, sans-serif",
+                  fontSize: 9,
+                  fontWeight: 700,
+                  letterSpacing: "0.2em",
+                  textTransform: "uppercase",
+                  color: COLORS.primary,
+                  display: "block",
+                  marginBottom: 8,
+                  marginLeft: 4,
+                }}
+              >
+                Message
+              </label>
+              <textarea
+                placeholder="How can I help you reach Apex Form?"
+                rows={4}
+                value={formState.message}
+                onChange={(e) =>
+                  setFormState({ ...formState, message: e.target.value })
+                }
+                style={{ ...inputStyle, resize: "vertical" }}
+                onFocus={(e) =>
+                  (e.target.style.borderBottomColor = COLORS.primary)
+                }
+                onBlur={(e) =>
+                  (e.target.style.borderBottomColor = "transparent")
+                }
+              />
+            </div>
+
+            <button
+              type="submit"
+              style={{
+                width: "100%",
+                background: `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDim})`,
+                color: COLORS.onPrimary,
+                border: "none",
+                padding: "20px",
+                borderRadius: 999,
+                fontFamily: "Lexend, sans-serif",
+                fontWeight: 800,
+                fontSize: 11,
+                letterSpacing: "0.25em",
+                textTransform: "uppercase",
+                cursor: "pointer",
+                boxShadow: `0 20px 60px rgba(255,143,111,0.2)`,
+                transition: "transform 0.15s, box-shadow 0.15s",
+                marginTop: 8,
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.transform = "translateY(-2px)";
+                e.target.style.boxShadow = `0 28px 60px rgba(255,143,111,0.35)`;
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.transform = "translateY(0)";
+                e.target.style.boxShadow = `0 20px 60px rgba(255,143,111,0.2)`;
+              }}
+            >
+              Send Message
+            </button>
+          </form>
+        )}
+      </div>
+    </section>
+  );
+}
