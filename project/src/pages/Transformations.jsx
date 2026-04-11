@@ -6,21 +6,22 @@ export function Transformations() {
   // Smart loader function - reads from the TRANSFORMATIONS_DIRECTORY
   const loadTransformations = () => TRANSFORMATIONS_DIRECTORY;
   const transformations = loadTransformations();
+  const isMobile = window.innerWidth < 768;
 
   return (
     <section
       id="transformations"
       style={{
         background: COLORS.surface,
-        padding: "120px 60px",
+        padding: isMobile ? "60px 24px" : "120px 60px",
       }}
     >
-      <div style={{ textAlign: "center", marginBottom: 64 }}>
+      <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 64 }}>
         <p
           style={{
-            fontFamily: "Manrope, sans-serif",
-            fontSize: 10,
-            fontWeight: 700,
+            fontFamily: "Inter, sans-serif",
+            fontSize: isMobile ? 8 : 10,
+            fontWeight: 600,
             letterSpacing: "0.6em",
             textTransform: "uppercase",
             color: COLORS.secondary,
@@ -31,9 +32,9 @@ export function Transformations() {
         </p>
         <h2
           style={{
-            fontFamily: "Lexend, sans-serif",
+            fontFamily: "Montserrat, sans-serif",
             fontWeight: 900,
-            fontSize: "clamp(36px, 4vw, 56px)",
+            fontSize: isMobile ? "clamp(28px, 4vw, 36px)" : "clamp(36px, 4vw, 56px)",
             letterSpacing: "-0.03em",
             textTransform: "uppercase",
             color: COLORS.onSurface,
@@ -46,11 +47,12 @@ export function Transformations() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
-          gap: 24,
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fill, minmax(300px, 1fr))",
+          gap: isMobile ? 16 : 24,
           maxWidth: 1100,
           margin: "0 auto",
         }}
+        className="transformations-grid"
       >
         {transformations.map((t, i) => (
           <TransformationCard
@@ -64,10 +66,9 @@ export function Transformations() {
       <p
         style={{
           textAlign: "center",
-          fontFamily: "Manrope, sans-serif",
-          fontSize: 12,
+          fontSize: isMobile ? 11 : 12,
           color: COLORS.onSurfaceVariant,
-          marginTop: 48,
+          marginTop: isMobile ? 32 : 48,
           letterSpacing: "0.05em",
         }}
       >

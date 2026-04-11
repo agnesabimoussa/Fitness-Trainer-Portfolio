@@ -1,70 +1,105 @@
-# Getting Started with Create React App
+# Project Structure Overview
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This document explains how the main.jsx has been organized into a scalable component and pages structure.
 
-## Available Scripts
+## 📁 Folder Organization
 
-In the project directory, you can run:
+```
+src/
+├── App.jsx                      # Root component that ties everything together
+├── index.js                     # Entry point (already exists)
+│
+├── components/                  # Reusable UI components
+│   ├── Navbar.jsx              # Navigation header with logo and menu
+│   ├── HeroSection.jsx         # Hero banner section
+│   ├── StatBadge.jsx           # Stat display badge component
+│   ├── ExpertiseCard.jsx       # Card for expertise grid (with image variant)
+│   ├── TimelineItem.jsx        # Timeline item for experience section
+│   ├── TransformationCard.jsx  # Before/after transformation card
+│   ├── IntroOverlay.jsx        # Intro animation overlay
+│   └── Footer.jsx              # Footer component
+│
+├── pages/                       # Page sections (full-width layouts)
+│   ├── About.jsx               # About/Philosophy section
+│   ├── Expertise.jsx           # Expertise grid section
+│   ├── Experience.jsx          # Experience timeline section
+│   ├── Transformations.jsx     # Client transformations gallery
+│   └── Contact.jsx             # Contact form section
+│
+├── hooks/                       # Custom React hooks
+│   └── useInView.js            # Intersection observer hook for scroll animations
+│
+├── constants/                   # Constant data
+│   ├── colors.js               # Design tokens (COLORS object)
+│   └── transformations.js      # Transformations gallery data
+│
+└── [existing files]
+    ├── index.css
+    ├── App.css
+    ├── logo.svg
+    ├── reportWebVitals.js
+    └── setupTests.js
+```
 
-### `npm start`
+## 🎯 Component Breakdown
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Components (Reusable)
+- **Navbar**: Sticky navigation with mobile menu
+- **HeroSection**: Large hero banner with CTA buttons
+- **StatBadge**: Small stat display component
+- **ExpertiseCard**: Grid card with optional image
+- **TimelineItem**: Single timeline entry
+- **TransformationCard**: Before/after transformation display
+- **IntroOverlay**: Splash screen animation
+- **Footer**: Site footer with links
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### Pages (Full-width Sections)
+- **About**: Coach philosophy and credentials
+- **Expertise**: Services offered in grid layout
+- **Experience**: Timeline of professional history
+- **Transformations**: Gallery of client results
+- **Contact**: Contact form with validation
 
-### `npm test`
+### Hooks
+- **useInView**: Detects when element enters viewport for scroll animations
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Constants
+- **colors.js**: All design tokens in one place
+- **transformations.js**: Data for transformation gallery (easily extensible)
 
-### `npm run build`
+## 🔄 Data Flow
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **App.jsx** - Root component managing global state and section tracking
+2. **Pages** - Import components and constants as needed
+3. **Components** - Accept props and import colors/hooks
+4. **Constants** - Centralized data and design tokens
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## ✅ Benefits of This Structure
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+✓ **Separation of Concerns** - Components are focused and reusable
+✓ **Scalability** - Easy to add new pages or components
+✓ **Maintainability** - Clear folder hierarchy and naming
+✓ **Data Management** - Constants are centralized
+✓ **Performance** - Lazy components can be added later
+✓ **Testing** - Components can be tested in isolation
 
-### `npm run eject`
+## 🚀 How to Extend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**Add a new component:**
+1. Create file in `components/` folder
+2. Export the component
+3. Import in relevant page or App.jsx
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Add a new page section:**
+1. Create file in `pages/` folder
+2. Import components and constants as needed
+3. Import in App.jsx and add to main render
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+**Add a new hook:**
+1. Create file in `hooks/` folder
+2. Export the hook
+3. Import where needed
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+**Add new design tokens:**
+1. Add to `constants/colors.js`
+2. Import COLORS wherever needed

@@ -4,6 +4,7 @@ import { useInView } from "../hooks/useInView";
 
 export function Contact() {
   const [ref, inView] = useInView();
+  const isMobile = window.innerWidth < 768;
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -24,7 +25,7 @@ export function Contact() {
     borderBottom: `2px solid transparent`,
     padding: "16px 20px",
     borderRadius: 12,
-    fontFamily: "Manrope, sans-serif",
+    fontFamily: "Inter, sans-serif",
     fontSize: 14,
     color: COLORS.onSurface,
     outline: "none",
@@ -38,7 +39,7 @@ export function Contact() {
       ref={ref}
       style={{
         background: COLORS.surface,
-        padding: "120px 60px",
+        padding: isMobile ? "60px 24px" : "120px 60px",
         position: "relative",
         overflow: "hidden",
       }}
@@ -66,12 +67,12 @@ export function Contact() {
           transition: "opacity 0.8s ease, transform 0.8s ease",
         }}
       >
-        <div style={{ textAlign: "center", marginBottom: 60 }}>
+        <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 60 }}>
           <h2
             style={{
-              fontFamily: "Lexend, sans-serif",
+              fontFamily: "Montserrat, sans-serif",
               fontWeight: 900,
-              fontSize: "clamp(36px, 5vw, 60px)",
+              fontSize: isMobile ? "clamp(28px, 5vw, 36px)" : "clamp(36px, 5vw, 60px)",
               letterSpacing: "-0.03em",
               textTransform: "uppercase",
               color: COLORS.onSurface,
@@ -82,8 +83,8 @@ export function Contact() {
           </h2>
           <p
             style={{
-              fontFamily: "Manrope, sans-serif",
-              fontSize: 15,
+              fontFamily: "Inter, sans-serif",
+              fontSize: isMobile ? 13 : 15,
               color: COLORS.onSurfaceVariant,
               lineHeight: 1.6,
             }}
@@ -105,7 +106,7 @@ export function Contact() {
             <div style={{ fontSize: 48, marginBottom: 20 }}>✓</div>
             <h3
               style={{
-                fontFamily: "Lexend, sans-serif",
+                fontFamily: "Montserrat, sans-serif",
                 fontWeight: 800,
                 fontSize: 24,
                 color: COLORS.secondary,
@@ -116,7 +117,7 @@ export function Contact() {
             </h3>
             <p
               style={{
-                fontFamily: "Manrope, sans-serif",
+                fontFamily: "Inter, sans-serif",
                 fontSize: 14,
                 color: COLORS.onSurfaceVariant,
               }}
@@ -128,13 +129,14 @@ export function Contact() {
           <form
             onSubmit={handleSubmit}
             style={{ display: "flex", flexDirection: "column", gap: 20 }}
+            className="contact-grid"
           >
             <div>
               <label
                 style={{
-                  fontFamily: "Manrope, sans-serif",
+                  fontFamily: "Inter, sans-serif",
                   fontSize: 9,
-                  fontWeight: 700,
+                  fontWeight: 600,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
                   color: COLORS.primary,
@@ -163,13 +165,13 @@ export function Contact() {
               />
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
               <div>
                 <label
                   style={{
-                    fontFamily: "Manrope, sans-serif",
+                    fontFamily: "Inter, sans-serif",
                     fontSize: 9,
-                    fontWeight: 700,
+                    fontWeight: 600,
                     letterSpacing: "0.2em",
                     textTransform: "uppercase",
                     color: COLORS.primary,
@@ -200,9 +202,9 @@ export function Contact() {
               <div>
                 <label
                   style={{
-                    fontFamily: "Manrope, sans-serif",
+                    fontFamily: "Inter, sans-serif",
                     fontSize: 9,
-                    fontWeight: 700,
+                    fontWeight: 600,
                     letterSpacing: "0.2em",
                     textTransform: "uppercase",
                     color: COLORS.primary,
@@ -237,9 +239,9 @@ export function Contact() {
             <div>
               <label
                 style={{
-                  fontFamily: "Manrope, sans-serif",
+                  fontFamily: "Inter, sans-serif",
                   fontSize: 9,
-                  fontWeight: 700,
+                  fontWeight: 600,
                   letterSpacing: "0.2em",
                   textTransform: "uppercase",
                   color: COLORS.primary,
@@ -274,25 +276,25 @@ export function Contact() {
                 background: `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDim})`,
                 color: COLORS.onPrimary,
                 border: "none",
-                padding: "20px",
+                padding: isMobile ? "18px 20px" : "20px",
                 borderRadius: 999,
-                fontFamily: "Lexend, sans-serif",
+                fontFamily: "Montserrat, sans-serif",
                 fontWeight: 800,
-                fontSize: 11,
+                fontSize: isMobile ? 10 : 11,
                 letterSpacing: "0.25em",
                 textTransform: "uppercase",
                 cursor: "pointer",
-                boxShadow: `0 20px 60px rgba(255,143,111,0.2)`,
-                transition: "transform 0.15s, box-shadow 0.15s",
+                boxShadow: `0 20px 60px ${COLORS.primary}30`,
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 marginTop: 8,
               }}
               onMouseEnter={(e) => {
-                e.target.style.transform = "translateY(-2px)";
-                e.target.style.boxShadow = `0 28px 60px rgba(255,143,111,0.35)`;
+                e.target.style.transform = "scale(1.08) translateY(-3px)";
+                e.target.style.boxShadow = `0 28px 60px ${COLORS.primary}50`;
               }}
               onMouseLeave={(e) => {
-                e.target.style.transform = "translateY(0)";
-                e.target.style.boxShadow = `0 20px 60px rgba(255,143,111,0.2)`;
+                e.target.style.transform = "scale(1) translateY(0)";
+                e.target.style.boxShadow = `0 20px 60px ${COLORS.primary}30`;
               }}
             >
               Send Message

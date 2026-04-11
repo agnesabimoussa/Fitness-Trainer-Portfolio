@@ -4,6 +4,7 @@ import { StatBadge } from "../components/StatBadge";
 
 export function About() {
   const [ref, inView] = useInView();
+  const isMobile = window.innerWidth < 768;
 
   return (
     <section
@@ -11,15 +12,15 @@ export function About() {
       ref={ref}
       style={{
         background: COLORS.surfaceLow,
-        padding: "120px 40px 120px 60px",
+        padding: isMobile ? "60px 24px" : "120px 40px 120px 60px",
       }}
     >
       <div
         style={{
           maxWidth: 1100,
           display: "grid",
-          gridTemplateColumns: "1fr 1fr",
-          gap: 80,
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+          gap: isMobile ? 40 : 80,
           alignItems: "center",
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(40px)",
@@ -41,7 +42,7 @@ export function About() {
             onMouseLeave={(e) => (e.currentTarget.style.filter = "grayscale(100%)")}
           >
             <img
-              src="https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=700&h=700&fit=crop"
+              src={require("../assets/dibal.jpeg")}
               alt="Coach in motion"
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
@@ -51,8 +52,8 @@ export function About() {
           <div
             style={{
               position: "absolute",
-              bottom: -20,
-              right: -20,
+              bottom: isMobile ? -10 : -20,
+              right: isMobile ? -10 : -20,
               display: "flex",
               flexDirection: "column",
               gap: 8,
@@ -64,18 +65,18 @@ export function About() {
           <div
             style={{
               position: "absolute",
-              top: 24,
-              left: -20,
+              top: isMobile ? 0 : 24,
+              left: isMobile ? 0 : -20,
               background: COLORS.surfaceHighest,
               border: `1px solid rgba(72,72,71,0.3)`,
-              padding: "16px 20px",
+              padding: isMobile ? "12px 16px" : "16px 20px",
               borderRadius: 12,
             }}
             className="stat-badge-left"
           >
             <div
               style={{
-                fontFamily: "Lexend, sans-serif",
+                fontFamily: "Montserrat, sans-serif",
                 fontWeight: 900,
                 fontSize: 28,
                 color: COLORS.primary,
@@ -85,8 +86,8 @@ export function About() {
             </div>
             <div
               style={{
-                fontFamily: "Manrope, sans-serif",
-                fontWeight: 700,
+                fontFamily: "Inter, sans-serif",
+                fontWeight: 500,
                 fontSize: 9,
                 letterSpacing: "0.15em",
                 textTransform: "uppercase",
@@ -102,9 +103,9 @@ export function About() {
         <div style={{ paddingLeft: 20 }}>
           <p
             style={{
-              fontFamily: "Manrope, sans-serif",
+              fontFamily: "Inter, sans-serif",
               fontSize: 10,
-              fontWeight: 700,
+              fontWeight: 600,
               letterSpacing: "0.4em",
               textTransform: "uppercase",
               color: COLORS.primary,
@@ -115,7 +116,7 @@ export function About() {
           </p>
           <h2
             style={{
-              fontFamily: "Lexend, sans-serif",
+              fontFamily: "Montserrat, sans-serif",
               fontWeight: 900,
               fontSize: "clamp(36px, 4vw, 56px)",
               letterSpacing: "-0.03em",
@@ -140,7 +141,7 @@ export function About() {
           >
             <p
               style={{
-                fontFamily: "Manrope, sans-serif",
+                fontFamily: "Inter, sans-serif",
                 fontSize: 15,
                 lineHeight: 1.8,
                 color: COLORS.onSurfaceVariant,
@@ -155,7 +156,7 @@ export function About() {
             </p>
             <p
               style={{
-                fontFamily: "Manrope, sans-serif",
+                fontFamily: "Inter, sans-serif",
                 fontSize: 15,
                 lineHeight: 1.8,
                 color: COLORS.onSurfaceVariant,
@@ -185,8 +186,8 @@ export function About() {
                     border: `1px solid rgba(72,72,71,0.4)`,
                     padding: "8px 14px",
                     borderRadius: 4,
-                    fontFamily: "Manrope, sans-serif",
-                    fontWeight: 700,
+                    fontFamily: "Inter, sans-serif",
+                    fontWeight: 600,
                     fontSize: 9,
                     letterSpacing: "0.15em",
                     textTransform: "uppercase",
@@ -209,21 +210,27 @@ export function About() {
               color: COLORS.secondary,
               padding: "14px 32px",
               borderRadius: 999,
-              fontFamily: "Lexend, sans-serif",
+              fontFamily: "Montserrat, sans-serif",
               fontWeight: 700,
               fontSize: 10,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
               cursor: "pointer",
-              transition: "background 0.2s, color 0.2s",
+              transition: "background 0.3s ease, color 0.3s ease, border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
             }}
             onMouseEnter={(e) => {
               e.target.style.background = COLORS.secondary;
               e.target.style.color = COLORS.onSecondary;
+              e.target.style.borderColor = COLORS.secondary;
+              e.target.style.transform = "scale(1.05) translateY(-1px)";
+              e.target.style.boxShadow = `0 8px 20px ${COLORS.secondary}40`;
             }}
             onMouseLeave={(e) => {
               e.target.style.background = "none";
               e.target.style.color = COLORS.secondary;
+              e.target.style.borderColor = "rgba(0,227,253,0.4)";
+              e.target.style.transform = "scale(1) translateY(0)";
+              e.target.style.boxShadow = "none";
             }}
           >
             Work With Me

@@ -20,7 +20,7 @@ export function TimelineItem({ years, role, place, description, delay }) {
         style={{
           flexShrink: 0,
           width: 120,
-          fontFamily: "Lexend, sans-serif",
+          fontFamily: "Montserrat, sans-serif",
           fontWeight: 700,
           fontSize: 15,
           color: COLORS.primary,
@@ -53,7 +53,7 @@ export function TimelineItem({ years, role, place, description, delay }) {
         />
         <h4
           style={{
-            fontFamily: "Lexend, sans-serif",
+            fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
             fontSize: 13,
             letterSpacing: "0.15em",
@@ -66,7 +66,7 @@ export function TimelineItem({ years, role, place, description, delay }) {
         </h4>
         <p
           style={{
-            fontFamily: "Lexend, sans-serif",
+            fontFamily: "Montserrat, sans-serif",
             fontWeight: 600,
             fontSize: 18,
             color: COLORS.onSurface,
@@ -77,7 +77,7 @@ export function TimelineItem({ years, role, place, description, delay }) {
         </p>
         <p
           style={{
-            fontFamily: "Manrope, sans-serif",
+            fontFamily: "Inter, sans-serif",
             fontSize: 13,
             lineHeight: 1.7,
             color: COLORS.onSurfaceVariant,

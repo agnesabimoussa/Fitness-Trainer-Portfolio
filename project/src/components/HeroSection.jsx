@@ -7,83 +7,30 @@ export function HeroSection() {
       style={{
         position: "relative",
         minHeight: "100vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "flex-end",
-        padding: "0 40px 100px 60px",
+        display: "grid",
+        gridTemplateColumns: "1fr 1fr",
+        alignItems: "center",
+        gap: 60,
+        padding: "100px 60px",
         overflow: "hidden",
+        background: COLORS.surface,
       }}
     >
-      {/* Background */}
-      <div
-        style={{
-          position: "absolute",
-          inset: 0,
-          zIndex: 0,
-        }}
-      >
-        <img
-          src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=1600&h=1000&fit=crop"
-          alt="Gym environment"
+      {/* Left Content */}
+      <div style={{ position: "relative", zIndex: 1 }}>
+        <h1
           style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover",
-            opacity: 0.35,
-          }}
-        />
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(to top, #0e0e0e 30%, rgba(14,14,14,0.5) 65%, rgba(14,14,14,0.1) 100%)",
-          }}
-        />
-        {/* Accent glow */}
-        <div
-          style={{
-            position: "absolute",
-            bottom: "30%",
-            left: "-10%",
-            width: "60%",
-            height: "40%",
-            background: `radial-gradient(ellipse, rgba(255,143,111,0.08) 0%, transparent 70%)`,
-            pointerEvents: "none",
-          }}
-        />
-      </div>
-
-      {/* Content */}
-      <div style={{ position: "relative", zIndex: 1, maxWidth: 700 }}>
-        <p
-          style={{
-            fontFamily: "Manrope, sans-serif",
-            fontSize: 10,
-            fontWeight: 700,
-            letterSpacing: "0.5em",
-            textTransform: "uppercase",
-            color: COLORS.secondary,
+            fontFamily: "Montserrat, sans-serif",
+            fontSize: "clamp(42px, 5vw, 80px)",
+            fontWeight: 900,
+            lineHeight: 1.1,
+            letterSpacing: "-0.03em",
+            color: COLORS.onSurface,
             marginBottom: 24,
             animation: "fadeUp 0.8s ease 0.2s both",
           }}
         >
-          Kinetic Precision Training
-        </p>
-
-        <h1
-          style={{
-            fontFamily: "Lexend, sans-serif",
-            fontSize: "clamp(52px, 9vw, 110px)",
-            fontWeight: 900,
-            lineHeight: 0.88,
-            letterSpacing: "-0.03em",
-            color: COLORS.onSurface,
-            marginBottom: 28,
-            animation: "fadeUp 0.8s ease 0.35s both",
-          }}
-        >
-          TRAIN WITH
+          Fitness Coach
           <br />
           <span
             style={{
@@ -92,23 +39,21 @@ export function HeroSection() {
               display: "block",
             }}
           >
-            APEX
+            and Athlete
           </span>
         </h1>
 
         <p
           style={{
-            fontFamily: "Manrope, sans-serif",
-            fontSize: 17,
-            lineHeight: 1.7,
+            fontFamily: "Inter, sans-serif",
+            fontSize: 16,
+            lineHeight: 1.8,
             color: COLORS.onSurfaceVariant,
-            maxWidth: 380,
             marginBottom: 40,
-            animation: "fadeUp 0.8s ease 0.5s both",
+            animation: "fadeUp 0.8s ease 0.35s both",
           }}
         >
-          Engineering elite performance through kinetic precision and
-          disciplined movement.
+          Certified with 5+ credentials and 3+ years of proven transformations
         </p>
 
         <div
@@ -117,7 +62,7 @@ export function HeroSection() {
             gap: 16,
             alignItems: "center",
             marginBottom: 48,
-            animation: "fadeUp 0.8s ease 0.6s both",
+            animation: "fadeUp 0.8s ease 0.5s both",
           }}
         >
           <button
@@ -130,22 +75,22 @@ export function HeroSection() {
               border: "none",
               padding: "16px 36px",
               borderRadius: 999,
-              fontFamily: "Lexend, sans-serif",
-              fontWeight: 800,
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 700,
               fontSize: 11,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
               cursor: "pointer",
-              boxShadow: `0 20px 60px rgba(255,143,111,0.2)`,
-              transition: "transform 0.15s, box-shadow 0.15s",
+              boxShadow: `0 20px 60px ${COLORS.primary}30`,
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
             }}
             onMouseEnter={(e) => {
-              e.target.style.transform = "translateY(-2px)";
-              e.target.style.boxShadow = `0 28px 60px rgba(255,143,111,0.35)`;
+              e.target.style.transform = "scale(1.08) translateY(-3px)";
+              e.target.style.boxShadow = `0 28px 60px ${COLORS.primary}50`;
             }}
             onMouseLeave={(e) => {
-              e.target.style.transform = "translateY(0)";
-              e.target.style.boxShadow = `0 20px 60px rgba(255,143,111,0.2)`;
+              e.target.style.transform = "scale(1) translateY(0)";
+              e.target.style.boxShadow = `0 20px 60px ${COLORS.primary}30`;
             }}
           >
             Start Training
@@ -160,82 +105,67 @@ export function HeroSection() {
               border: `1px solid rgba(72,72,71,0.5)`,
               padding: "16px 36px",
               borderRadius: 999,
-              fontFamily: "Lexend, sans-serif",
-              fontWeight: 700,
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 600,
               fontSize: 11,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
               cursor: "pointer",
-              transition: "border-color 0.2s, color 0.2s",
+              transition: "border-color 0.3s ease, color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease",
             }}
             onMouseEnter={(e) => {
               e.target.style.borderColor = COLORS.secondary;
               e.target.style.color = COLORS.secondary;
+              e.target.style.transform = "scale(1.05) translateY(-2px)";
+              e.target.style.boxShadow = `0 8px 20px ${COLORS.secondary}30`;
             }}
             onMouseLeave={(e) => {
               e.target.style.borderColor = "rgba(72,72,71,0.5)";
               e.target.style.color = COLORS.onSurface;
+              e.target.style.transform = "scale(1) translateY(0)";
+              e.target.style.boxShadow = "none";
             }}
           >
-            Meet the Coach
+            View Results
           </button>
         </div>
 
-        {/* Accent bars */}
-        <div
-          style={{
-            display: "flex",
-            gap: 8,
-            animation: "fadeUp 0.8s ease 0.7s both",
-          }}
-        >
-          <div
-            style={{ height: 3, width: 80, background: COLORS.primary, borderRadius: 2 }}
-          />
-          <div
-            style={{ height: 3, width: 30, background: COLORS.secondary, borderRadius: 2 }}
-          />
-          <div
-            style={{ height: 3, width: 12, background: COLORS.outlineVariant, borderRadius: 2 }}
-          />
-        </div>
+
       </div>
 
-      {/* Scroll indicator */}
+      {/* Right Image */}
       <div
         style={{
-          position: "absolute",
-          bottom: 36,
-          right: 40,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          gap: 8,
-          animation: "fadeUp 0.8s ease 1s both",
+          position: "relative",
+          width: "clamp(300px, 100%, 600px)",
+          aspectRatio: "1",
+          borderRadius: "50%",
+          overflow: "hidden",
+          animation: "fadeUp 0.8s ease 0.3s both",
         }}
       >
-        <div
+        <img
+          src={require("../assets/dibal.jpeg")}
+          alt="Coach Dibal"
           style={{
-            fontFamily: "Manrope, sans-serif",
-            fontSize: 9,
-            fontWeight: 700,
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: COLORS.onSurfaceVariant,
-            writingMode: "vertical-rl",
+            width: "100%",
+            height: "110%",
+            objectFit: "cover",
           }}
-        >
-          Scroll
-        </div>
+        />
+        {/* Accent border */}
         <div
           style={{
-            width: 1,
-            height: 48,
-            background: `linear-gradient(to bottom, ${COLORS.outlineVariant}, transparent)`,
-            animation: "pulse 2s ease infinite",
+            position: "absolute",
+            inset: 0,
+            border: `2px solid ${COLORS.primary}`,
+            borderRadius: "50%",
+            pointerEvents: "none",
           }}
         />
       </div>
+
+
     </section>
   );
 }

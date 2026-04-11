@@ -1,11 +1,13 @@
 import { COLORS } from "../constants/colors";
 
 export function Footer() {
+  const isMobile = window.innerWidth < 768;
+
   return (
     <footer
       style={{
         background: COLORS.surfaceLow,
-        padding: "48px 60px",
+        padding: isMobile ? "40px 24px" : "48px 60px",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -15,17 +17,17 @@ export function Footer() {
     >
       <div
         style={{
-          fontFamily: "Lexend, sans-serif",
-          fontWeight: 900,
-          fontSize: 22,
-          letterSpacing: "-0.03em",
+          fontFamily: "Montserrat, sans-serif",
+          fontWeight: 800,
+          fontSize: isMobile ? 18 : 22,
+          letterSpacing: "-0.01em",
           color: COLORS.primary,
         }}
       >
         APEX FORM
       </div>
 
-      <div style={{ display: "flex", gap: 32 }}>
+      <div style={{ display: "flex", gap: isMobile ? 16 : 32, flexWrap: "wrap", justifyContent: "center" }}>
         {["About", "Expertise", "Results", "Contact"].map((label) => (
           <button
             key={label}
@@ -38,16 +40,24 @@ export function Footer() {
               background: "none",
               border: "none",
               cursor: "pointer",
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: 600,
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 500,
               fontSize: 11,
               letterSpacing: "0.12em",
               textTransform: "uppercase",
               color: COLORS.onSurfaceVariant,
-              transition: "color 0.2s",
+              transition: "color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease",
             }}
-            onMouseEnter={(e) => (e.target.style.color = COLORS.secondary)}
-            onMouseLeave={(e) => (e.target.style.color = COLORS.onSurfaceVariant)}
+            onMouseEnter={(e) => {
+              e.target.style.color = COLORS.secondary;
+              e.target.style.transform = "translateY(-2px) scale(1.08)";
+              e.target.style.textShadow = `0 0 8px ${COLORS.secondary}40`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = COLORS.onSurfaceVariant;
+              e.target.style.transform = "translateY(0) scale(1)";
+              e.target.style.textShadow = "none";
+            }}
           >
             {label}
           </button>
@@ -56,7 +66,7 @@ export function Footer() {
 
       <p
         style={{
-          fontFamily: "Manrope, sans-serif",
+          fontFamily: "Inter, sans-serif",
           fontSize: 10,
           letterSpacing: "0.2em",
           textTransform: "uppercase",

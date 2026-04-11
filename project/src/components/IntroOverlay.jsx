@@ -47,7 +47,7 @@ export function IntroOverlay({ onComplete }) {
               : "none",
         }}
       >
-        APEX FORM
+        Dibal Abi Moussa
       </div>
       <div
         style={{
@@ -62,7 +62,7 @@ export function IntroOverlay({ onComplete }) {
           transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
         }}
       >
-        Kinetic Precision Training
+        Fitness Coach
       </div>
 
       {/* Loading bar */}

@@ -13,7 +13,7 @@ export function StatBadge({ value, label }) {
     >
       <div
         style={{
-          fontFamily: "Lexend, sans-serif",
+          fontFamily: "Montserrat, sans-serif",
           fontWeight: 900,
           fontSize: 36,
           color: COLORS.onSecondary,
@@ -24,8 +24,8 @@ export function StatBadge({ value, label }) {
       </div>
       <div
         style={{
-          fontFamily: "Manrope, sans-serif",
-          fontWeight: 700,
+          fontFamily: "Inter, sans-serif",
+          fontWeight: 600,
           fontSize: 9,
           letterSpacing: "0.2em",
           textTransform: "uppercase",

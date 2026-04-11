@@ -4,6 +4,7 @@ import { ExpertiseCard } from "../components/ExpertiseCard";
 
 export function Expertise() {
   const [ref, inView] = useInView();
+  const isMobile = window.innerWidth < 768;
 
   const items = [
     {
@@ -17,7 +18,7 @@ export function Expertise() {
       description:
         "The core of performance. Progressive overload protocols focused on compound movements and neuromuscular efficiency.",
       imageUrl:
-        "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&h=400&fit=crop",
+        require("../assets/dibal.jpeg"),
       wide: true,
     },
     {
@@ -41,18 +42,18 @@ export function Expertise() {
       ref={ref}
       style={{
         background: COLORS.surface,
-        padding: "120px 60px",
+        padding: isMobile ? "60px 24px" : "120px 60px",
       }}
     >
       <p
         style={{
-          fontFamily: "Manrope, sans-serif",
-          fontSize: 10,
-          fontWeight: 700,
+          fontFamily: "Inter, sans-serif",
+          fontSize: isMobile ? 8 : 10,
+          fontWeight: 600,
           letterSpacing: "0.4em",
           textTransform: "uppercase",
           color: COLORS.primary,
-          marginBottom: 48,
+          marginBottom: isMobile ? 32 : 48,
           opacity: inView ? 1 : 0,
           transform: inView ? "none" : "translateY(20px)",
           transition: "opacity 0.6s ease, transform 0.6s ease",
@@ -64,8 +65,8 @@ export function Expertise() {
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(3, 1fr)",
-          gap: 16,
+          gridTemplateColumns: isMobile ? "1fr" : "repeat(3, 1fr)",
+          gap: isMobile ? 16 : 16,
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(40px)",
           transition: "opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s",

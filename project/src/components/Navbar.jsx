@@ -36,7 +36,6 @@ export function Navbar({ activeSection }) {
         height: 64,
         display: "flex",
         alignItems: "center",
-        justifyContent: "space-between",
         background: scrolled
           ? "rgba(14,14,14,0.88)"
           : "rgba(14,14,14,0.3)",
@@ -48,11 +47,11 @@ export function Navbar({ activeSection }) {
       }}
     >
       {/* Logo */}
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <div style={{ display: "flex", alignItems: "center", gap: 12, flex: "0 0 auto" }}>
         <div
           style={{
-            width: 36,
-            height: 36,
+            width: 44,
+            height: 44,
             borderRadius: "50%",
             border: `2px solid ${COLORS.primary}`,
             overflow: "hidden",
@@ -60,23 +59,30 @@ export function Navbar({ activeSection }) {
           }}
         >
           <img
-            src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=72&h=72&fit=crop&crop=face"
+            src={require("../assets/dibal.jpeg")}
             alt="Coach"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>
         <span
           style={{
-            fontFamily: "Lexend, sans-serif",
-            fontWeight: 900,
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 800,
             fontSize: 18,
-            letterSpacing: "-0.03em",
+            letterSpacing: "0em",
             color: COLORS.primary,
+            whiteSpace: "nowrap",
+            overflow: "hidden",
+            textOverflow: "ellipsis",
           }}
+          className="logo-text"
         >
-          APEX FORM
+          Dibal Abi Moussa
         </span>
       </div>
+
+      {/* Spacer - pushes hamburger to the right */}
+      <div style={{ flex: 1 }} />
 
       {/* Desktop Nav */}
       <nav
@@ -95,21 +101,31 @@ export function Navbar({ activeSection }) {
               background: "none",
               border: "none",
               cursor: "pointer",
-              fontFamily: "Manrope, sans-serif",
+              fontFamily: "Inter, sans-serif",
               fontSize: 11,
-              fontWeight: 700,
+              fontWeight: 600,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
               color:
                 activeSection === link.id
                   ? COLORS.primary
                   : COLORS.onSurfaceVariant,
-              transition: "color 0.2s",
+              transition: "color 0.3s ease, transform 0.3s ease, text-shadow 0.3s ease",
               padding: "4px 0",
               borderBottom:
                 activeSection === link.id
                   ? `2px solid ${COLORS.primary}`
                   : "2px solid transparent",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.color = COLORS.primary;
+              e.target.style.transform = "scale(1.08)";
+              e.target.style.textShadow = `0 0 10px ${COLORS.primary}40`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.color = activeSection === link.id ? COLORS.primary : COLORS.onSurfaceVariant;
+              e.target.style.transform = "scale(1)";
+              e.target.style.textShadow = "none";
             }}
           >
             {link.label}
@@ -123,16 +139,24 @@ export function Navbar({ activeSection }) {
             border: "none",
             padding: "10px 20px",
             borderRadius: 999,
-            fontFamily: "Lexend, sans-serif",
+            fontFamily: "Montserrat, sans-serif",
             fontWeight: 700,
             fontSize: 10,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
             cursor: "pointer",
-            transition: "transform 0.15s, opacity 0.15s",
+            transition: "transform 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease",
           }}
-          onMouseEnter={(e) => (e.target.style.opacity = "0.88")}
-          onMouseLeave={(e) => (e.target.style.opacity = "1")}
+          onMouseEnter={(e) => {
+            e.target.style.transform = "scale(1.1) translateY(-2px)";
+            e.target.style.boxShadow = `0 12px 24px ${COLORS.primary}50`;
+            e.target.style.opacity = "0.95";
+          }}
+          onMouseLeave={(e) => {
+            e.target.style.transform = "scale(1) translateY(0)";
+            e.target.style.boxShadow = "none";
+            e.target.style.opacity = "1";
+          }}
         >
           Book Now
         </button>
@@ -142,13 +166,23 @@ export function Navbar({ activeSection }) {
       <button
         onClick={() => setMenuOpen(!menuOpen)}
         style={{
-          display: "none",
           background: "none",
           border: "none",
           cursor: "pointer",
           flexDirection: "column",
           gap: 5,
           padding: 4,
+          minHeight: 48,
+          minWidth: 48,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          flex: "0 0 auto",
+          position: "fixed",
+          top: "8px",
+          right: "12px",
+          zIndex: "101",
+          pointerEvents: "auto",
         }}
         className="hamburger"
         aria-label="Toggle menu"
@@ -199,16 +233,30 @@ export function Navbar({ activeSection }) {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                fontFamily: "Manrope, sans-serif",
+                fontFamily: "Inter, sans-serif",
                 fontSize: 13,
-                fontWeight: 700,
+                fontWeight: 600,
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
                 color:
                   activeSection === link.id ? COLORS.primary : COLORS.onSurface,
-                padding: "14px 0",
+                padding: "14px 12px",
                 textAlign: "left",
                 borderBottom: `1px solid rgba(72,72,71,0.2)`,
+                borderLeft: `3px solid transparent`,
+                transition: "color 0.3s ease, transform 0.3s ease, border-color 0.3s ease, background 0.3s ease",
+              }}
+              onMouseEnter={(e) => {
+                e.target.style.color = COLORS.primary;
+                e.target.style.borderLeftColor = COLORS.primary;
+                e.target.style.background = "rgba(16, 185, 129, 0.08)";
+                e.target.style.transform = "translateX(4px)";
+              }}
+              onMouseLeave={(e) => {
+                e.target.style.color = activeSection === link.id ? COLORS.primary : COLORS.onSurface;
+                e.target.style.borderLeftColor = "transparent";
+                e.target.style.background = "none";
+                e.target.style.transform = "translateX(0)";
               }}
             >
               {link.label}
@@ -222,13 +270,22 @@ export function Navbar({ activeSection }) {
               border: "none",
               padding: "14px",
               borderRadius: 999,
-              fontFamily: "Lexend, sans-serif",
+              fontFamily: "Montserrat, sans-serif",
               fontWeight: 700,
               fontSize: 11,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
               cursor: "pointer",
               marginTop: 8,
+              transition: "transform 0.3s ease, box-shadow 0.3s ease",
+            }}
+            onMouseEnter={(e) => {
+              e.target.style.transform = "scale(1.08) translateY(-2px)";
+              e.target.style.boxShadow = `0 12px 24px ${COLORS.primary}50`;
+            }}
+            onMouseLeave={(e) => {
+              e.target.style.transform = "scale(1) translateY(0)";
+              e.target.style.boxShadow = "none";
             }}
           >
             Book Now

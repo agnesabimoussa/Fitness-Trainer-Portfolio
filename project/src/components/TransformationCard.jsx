@@ -50,8 +50,8 @@ export function TransformationCard({ transformation, delay }) {
               top: 8,
               left: 8,
               background: "rgba(14,14,14,0.8)",
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: 700,
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 600,
               fontSize: 9,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
@@ -85,8 +85,8 @@ export function TransformationCard({ transformation, delay }) {
               top: 8,
               left: 8,
               background: COLORS.primary,
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: 700,
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 600,
               fontSize: 9,
               letterSpacing: "0.15em",
               textTransform: "uppercase",
@@ -110,8 +110,8 @@ export function TransformationCard({ transformation, delay }) {
         <div>
           <h4
             style={{
-              fontFamily: "Lexend, sans-serif",
-              fontWeight: 800,
+              fontFamily: "Montserrat, sans-serif",
+              fontWeight: 700,
               fontSize: 16,
               color: COLORS.onSurface,
               marginBottom: 4,
@@ -121,8 +121,8 @@ export function TransformationCard({ transformation, delay }) {
           </h4>
           <p
             style={{
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: 700,
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 600,
               fontSize: 9,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
@@ -135,7 +135,7 @@ export function TransformationCard({ transformation, delay }) {
         <div style={{ textAlign: "right" }}>
           <p
             style={{
-              fontFamily: "Lexend, sans-serif",
+              fontFamily: "Montserrat, sans-serif",
               fontWeight: 900,
               fontSize: 30,
               color: COLORS.primary,
@@ -146,8 +146,8 @@ export function TransformationCard({ transformation, delay }) {
           </p>
           <p
             style={{
-              fontFamily: "Manrope, sans-serif",
-              fontWeight: 700,
+              fontFamily: "Inter, sans-serif",
+              fontWeight: 600,
               fontSize: 9,
               letterSpacing: "0.15em",
               textTransform: "uppercase",

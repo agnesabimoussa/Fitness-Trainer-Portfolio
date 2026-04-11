@@ -2,6 +2,7 @@ import { COLORS } from "../constants/colors";
 import { TimelineItem } from "../components/TimelineItem";
 
 export function Experience() {
+  const isMobile = window.innerWidth < 768;
   const timeline = [
     {
       years: "2020–2024",
@@ -31,25 +32,25 @@ export function Experience() {
       id="experience"
       style={{
         background: COLORS.surfaceLow,
-        padding: "120px 60px",
+        padding: isMobile ? "60px 24px" : "120px 60px",
         overflow: "hidden",
       }}
     >
       <h2
         style={{
-          fontFamily: "Lexend, sans-serif",
+          fontFamily: "Montserrat, sans-serif",
           fontWeight: 900,
-          fontSize: "clamp(40px, 5vw, 64px)",
+          fontSize: isMobile ? "clamp(32px, 5vw, 48px)" : "clamp(40px, 5vw, 64px)",
           letterSpacing: "-0.03em",
           textTransform: "uppercase",
           color: COLORS.onSurface,
-          marginBottom: 64,
+          marginBottom: isMobile ? 40 : 64,
         }}
       >
         EXPERIENCE
       </h2>
 
-      <div style={{ maxWidth: 700 }}>
+      <div style={{ maxWidth: 700 }} className="experience-grid">
         {timeline.map((item, i) => (
           <TimelineItem key={i} {...item} delay={i * 0.15} />
         ))}

@@ -3,16 +3,17 @@ import { COLORS } from "../constants/colors";
 
 export function ExpertiseCard({ icon, title, description, wide, imageUrl }) {
   const [hovered, setHovered] = useState(false);
+  const isMobile = window.innerWidth < 768;
 
   if (imageUrl) {
     return (
       <div
         style={{
-          gridColumn: wide ? "span 2" : "span 1",
+          gridColumn: isMobile ? "span 1" : wide ? "span 2" : "span 1",
           position: "relative",
           borderRadius: 12,
           overflow: "hidden",
-          minHeight: 280,
+          minHeight: isMobile ? 240 : 280,
         }}
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
@@ -37,7 +38,7 @@ export function ExpertiseCard({ icon, title, description, wide, imageUrl }) {
             inset: 0,
             background:
               "linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 60%)",
-            padding: "32px",
+            padding: isMobile ? "24px" : "32px",
             display: "flex",
             flexDirection: "column",
             justifyContent: "flex-end",
@@ -45,9 +46,9 @@ export function ExpertiseCard({ icon, title, description, wide, imageUrl }) {
         >
           <h3
             style={{
-              fontFamily: "Lexend, sans-serif",
+              fontFamily: "Montserrat, sans-serif",
               fontWeight: 900,
-              fontSize: 26,
+              fontSize: isMobile ? 22 : 26,
               letterSpacing: "-0.02em",
               color: COLORS.onSurface,
               marginBottom: 8,
@@ -57,7 +58,7 @@ export function ExpertiseCard({ icon, title, description, wide, imageUrl }) {
           </h3>
           <p
             style={{
-              fontFamily: "Manrope, sans-serif",
+              fontFamily: "Inter, sans-serif",
               fontSize: 13,
               lineHeight: 1.6,
               color: COLORS.onSurfaceVariant,
@@ -77,7 +78,7 @@ export function ExpertiseCard({ icon, title, description, wide, imageUrl }) {
         gridColumn: "span 1",
         background: COLORS.surfaceHighest,
         borderRadius: 12,
-        padding: "32px",
+        padding: isMobile ? "24px" : "32px",
         minHeight: 280,
         display: "flex",
         flexDirection: "column",
@@ -95,9 +96,9 @@ export function ExpertiseCard({ icon, title, description, wide, imageUrl }) {
       <div>
         <h3
           style={{
-            fontFamily: "Lexend, sans-serif",
-            fontWeight: 800,
-            fontSize: 20,
+            fontFamily: "Montserrat, sans-serif",
+            fontWeight: 700,
+            fontSize: isMobile ? 18 : 20,
             color: COLORS.onSurface,
             marginBottom: 10,
           }}
@@ -106,7 +107,7 @@ export function ExpertiseCard({ icon, title, description, wide, imageUrl }) {
         </h3>
         <p
           style={{
-            fontFamily: "Manrope, sans-serif",
+            fontFamily: "Inter, sans-serif",
             fontSize: 13,
             lineHeight: 1.6,
             color: COLORS.onSurfaceVariant,
