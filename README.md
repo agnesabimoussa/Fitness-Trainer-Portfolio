@@ -1,4 +1,4 @@
-# Dibal Abi Moussa - Fitness Trainer Portfolio
+# Fitness Trainer Portfolio
 
 A professional, modern portfolio website showcasing the expertise, certifications, and client transformations of a certified fitness coach specializing in strength conditioning, body recomposition, and prenatal/postnatal training.
 
