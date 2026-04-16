@@ -1,8 +1,10 @@
 import { COLORS } from "../constants/colors";
 import { useInView } from "../hooks/useInView";
+import { useState } from "react";
 
 export function TransformationCard({ transformation, delay }) {
   const [ref, inView] = useInView(0.1);
+  const [hovered, setHovered] = useState(false);
 
   return (
     <div
@@ -12,17 +14,38 @@ export function TransformationCard({ transformation, delay }) {
         borderRadius: 12,
         overflow: "hidden",
         padding: 24,
+        border: hovered ? `1px solid rgba(0,227,253,0.28)` : `1px solid rgba(72,72,71,0.22)`,
+        boxShadow: hovered ? "0 26px 60px rgba(0,0,0,0.40)" : "0 18px 44px rgba(0,0,0,0.26)",
         opacity: inView ? 1 : 0,
-        transform: inView ? "translateY(0)" : "translateY(50px)",
-        transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
+        transform: inView ? (hovered ? "translateY(-6px)" : "translateY(0)") : "translateY(50px)",
+        transition: `opacity 0.7s ease ${delay}s, transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease`,
+        cursor: "default",
+        position: "relative",
       }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
     >
+      {/* Sheen */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "absolute",
+          inset: 0,
+          background:
+            "radial-gradient(700px 340px at 18% 10%, rgba(0,227,253,0.08) 0%, transparent 58%), radial-gradient(900px 420px at 85% 110%, rgba(16,185,129,0.10) 0%, transparent 60%)",
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 0.22s ease",
+          pointerEvents: "none",
+        }}
+      />
+
       <div
         style={{
           display: "grid",
           gridTemplateColumns: "1fr 1fr",
           gap: 8,
           marginBottom: 20,
+          position: "relative",
         }}
       >
         {/* Before */}
@@ -37,11 +60,15 @@ export function TransformationCard({ transformation, delay }) {
           <img
             src={transformation.beforeUrl}
             alt={transformation.beforeAlt}
+            loading="lazy"
+            decoding="async"
             style={{
               width: "100%",
               height: "100%",
               objectFit: "cover",
               filter: "grayscale(100%)",
+              transform: hovered ? "scale(1.02)" : "scale(1)",
+              transition: "transform 0.22s ease",
             }}
           />
           <span
@@ -77,7 +104,15 @@ export function TransformationCard({ transformation, delay }) {
           <img
             src={transformation.afterUrl}
             alt={transformation.afterAlt}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            loading="lazy"
+            decoding="async"
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              transform: hovered ? "scale(1.02)" : "scale(1)",
+              transition: "transform 0.22s ease",
+            }}
           />
           <span
             style={{
@@ -105,28 +140,20 @@ export function TransformationCard({ transformation, delay }) {
           display: "flex",
           justifyContent: "space-between",
           alignItems: "flex-end",
+          position: "relative",
         }}
       >
         <div>
-          <h4
-            style={{
-              fontFamily: "Montserrat, sans-serif",
-              fontWeight: 700,
-              fontSize: 16,
-              color: COLORS.onSurface,
-              marginBottom: 4,
-            }}
-          >
-            Client: {transformation.clientName}
-          </h4>
           <p
             style={{
               fontFamily: "Inter, sans-serif",
-              fontWeight: 600,
+              fontWeight: 700,
               fontSize: 9,
-              letterSpacing: "0.2em",
+              letterSpacing: "0.22em",
               textTransform: "uppercase",
               color: COLORS.secondary,
+              opacity: hovered ? 1 : 0.88,
+              transition: "opacity 0.22s ease",
             }}
           >
             {transformation.program}
@@ -140,6 +167,8 @@ export function TransformationCard({ transformation, delay }) {
               fontSize: 30,
               color: COLORS.primary,
               lineHeight: 1,
+              textShadow: hovered ? `0 0 18px rgba(16,185,129,0.22)` : "none",
+              transition: "text-shadow 0.22s ease",
             }}
           >
             {transformation.stat}

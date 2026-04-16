@@ -16,6 +16,7 @@ export function Navbar({ activeSection }) {
     { id: "expertise", label: "Expertise" },
     { id: "experience", label: "Experience" },
     { id: "transformations", label: "Results" },
+    { id: "brand-deals", label: "Brand Deals" },
     { id: "contact", label: "Contact" },
   ];
 
@@ -32,57 +33,38 @@ export function Navbar({ activeSection }) {
         left: 0,
         right: 0,
         zIndex: 100,
-        padding: "0 24px",
+        padding:
+          "0 calc(24px + env(safe-area-inset-right)) 0 calc(24px + env(safe-area-inset-left))",
         height: 64,
         display: "flex",
         alignItems: "center",
+        justifyContent: "space-between",
         background: scrolled
           ? "rgba(14,14,14,0.88)"
           : "rgba(14,14,14,0.3)",
         backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
         transition: "background 0.4s ease",
         borderBottom: scrolled
           ? `1px solid rgba(72,72,71,0.3)`
           : "1px solid transparent",
       }}
     >
-      {/* Logo */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12, flex: "0 0 auto" }}>
-        <div
-          style={{
-            width: 44,
-            height: 44,
-            borderRadius: "50%",
-            border: `2px solid ${COLORS.primary}`,
-            overflow: "hidden",
-            flexShrink: 0,
-          }}
-        >
-          <img
-            src={require("../assets/dibal.jpeg")}
-            alt="Coach"
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
-          />
-        </div>
-        <span
-          style={{
-            fontFamily: "Montserrat, sans-serif",
-            fontWeight: 800,
-            fontSize: 18,
-            letterSpacing: "0em",
-            color: COLORS.primary,
-            whiteSpace: "nowrap",
-            overflow: "hidden",
-            textOverflow: "ellipsis",
-          }}
-          className="logo-text"
-        >
-          Dibal Abi Moussa
-        </span>
+      {/* Brand Name */}
+      <div
+        style={{
+          fontFamily: "Montserrat, sans-serif",
+          fontSize: "clamp(14px, 2vw, 18px)",
+          fontWeight: 700,
+          letterSpacing: "0.08em",
+          color: COLORS.onSurface,
+          textTransform: "uppercase",
+          flex: "0 0 auto",
+        }}
+        className="brand-name"
+      >
+        Dibal Abi Moussa
       </div>
-
-      {/* Spacer - pushes hamburger to the right */}
-      <div style={{ flex: 1 }} />
 
       {/* Desktop Nav */}
       <nav
@@ -97,6 +79,7 @@ export function Navbar({ activeSection }) {
           <button
             key={link.id}
             onClick={() => scrollTo(link.id)}
+            type="button"
             style={{
               background: "none",
               border: "none",
@@ -133,6 +116,7 @@ export function Navbar({ activeSection }) {
         ))}
         <button
           onClick={() => scrollTo("contact")}
+          type="button"
           style={{
             background: `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDim})`,
             color: COLORS.onPrimary,
@@ -165,6 +149,7 @@ export function Navbar({ activeSection }) {
       {/* Mobile Hamburger */}
       <button
         onClick={() => setMenuOpen(!menuOpen)}
+        type="button"
         style={{
           background: "none",
           border: "none",
@@ -179,13 +164,15 @@ export function Navbar({ activeSection }) {
           justifyContent: "center",
           flex: "0 0 auto",
           position: "fixed",
-          top: "8px",
-          right: "12px",
+          top: "calc(8px + env(safe-area-inset-top))",
+          right: "calc(12px + env(safe-area-inset-right))",
           zIndex: "101",
           pointerEvents: "auto",
         }}
         className="hamburger"
         aria-label="Toggle menu"
+        aria-expanded={menuOpen}
+        aria-controls="mobile-menu"
       >
         {[0, 1, 2].map((i) => (
           <div
@@ -211,6 +198,7 @@ export function Navbar({ activeSection }) {
       {/* Mobile Menu */}
       {menuOpen && (
         <div
+          id="mobile-menu"
           style={{
             position: "fixed",
             top: 64,
@@ -218,7 +206,9 @@ export function Navbar({ activeSection }) {
             right: 0,
             background: "rgba(14,14,14,0.97)",
             backdropFilter: "blur(20px)",
-            padding: "24px",
+            WebkitBackdropFilter: "blur(20px)",
+            padding:
+              "24px calc(24px + env(safe-area-inset-right)) 24px calc(24px + env(safe-area-inset-left))",
             display: "flex",
             flexDirection: "column",
             gap: 8,
@@ -229,6 +219,7 @@ export function Navbar({ activeSection }) {
             <button
               key={link.id}
               onClick={() => scrollTo(link.id)}
+              type="button"
               style={{
                 background: "none",
                 border: "none",
@@ -264,6 +255,7 @@ export function Navbar({ activeSection }) {
           ))}
           <button
             onClick={() => scrollTo("contact")}
+            type="button"
             style={{
               background: `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDim})`,
               color: COLORS.onPrimary,

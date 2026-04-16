@@ -2,18 +2,45 @@
   box-sizing: border-box;
 }
 
+:root {
+  color-scheme: dark;
+}
+
 html {
   scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  background: #0e0e0e;
+  color: #ffffff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Montserrat', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+::selection {
+  background: #10b981;
+  color: #f0fdf4;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0e0e0e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #484847;
+  border-radius: 2px;
 }
 
 code {
@@ -56,9 +83,36 @@ html {
   -webkit-scroll-behavior: smooth;
 }
 
+/* Fixed header offset for scrollIntoView() */
+section, footer {
+  scroll-margin-top: 84px;
+}
+
+/* Prefer stable viewport units on mobile when supported (iOS/Android address bar). */
+@supports (min-height: 100svh) {
+  section#hero {
+    min-height: 100svh !important;
+  }
+}
+
+/* Keep hero spacing intentional (global section padding rules use !important). */
+section#hero {
+  padding: 80px 60px !important;
+}
+
 /* Fix for Safari iOS */
 textarea {
   resize: vertical;
+}
+
+/* Keyboard accessibility */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid #00e3fd;
+  outline-offset: 2px;
 }
 
 /* Flexbox fallback */
@@ -181,11 +235,6 @@ textarea {
   display: none !important;
 }
 
-/* Spacer between logo and nav */
-header > div:nth-child(2) {
-  flex: 1;
-}
-
 @media (max-width: 768px) {
   /* Hide desktop nav completely */
   .desktop-nav {
@@ -196,23 +245,6 @@ header > div:nth-child(2) {
   .hamburger {
     display: flex !important;
   }
-
-  /* Logo adjustments for tablet/mobile */
-  .logo-text {
-    display: block !important;
-  }
-}
-
-/* Extra small screens - hide logo text, show only image */
-@media (max-width: 480px) {
-  .logo-text {
-    display: none !important;
-  }
-
-  /* Reduce gap when logo text is hidden */
-  header > div:first-child {
-    gap: 0 !important;
-  }
 }
 
 /* General page responsive styles */
@@ -221,11 +253,11 @@ header > div:nth-child(2) {
   section#hero {
     grid-template-columns: 1fr !important;
     gap: 40px !important;
-    padding: 80px 24px 60px 24px !important;
+    padding: 70px 24px 30px 24px !important;
   }
 
   /* Hero buttons - stack vertically on mobile */
-  #hero > div:first-child > div:nth-child(3) {
+  .hero-actions {
     flex-direction: column;
   }
 
@@ -236,14 +268,14 @@ header > div:nth-child(2) {
   }
 
   /* Hero image - smaller on mobile */
-  #hero > div:last-child {
-    width: clamp(200px, 100%, 400px) !important;
+  .hero-image {
+    width: min(420px, 100%) !important;
     margin: 0 auto !important;
   }
 
   /* Padding adjustments for mobile */
   section {
-    padding: 60px 24px !important;
+    padding: 40px 24px !important;
   }
 
   /* Grid layouts - switch to single column on mobile */
@@ -253,16 +285,7 @@ header > div:nth-child(2) {
   .contact-grid,
   .experience-grid {
     grid-template-columns: 1fr !important;
-    gap: 40px !important;
-  }
-
-  /* Reset specific section paddings */
-  section#about,
-  section#expertise,
-  section#transformations,
-  section#contact,
-  section#experience {
-    padding: 60px 24px !important;
+    gap: 32px !important;
   }
 
   /* Image containers */
@@ -323,7 +346,8 @@ header > div:nth-child(2) {
   }
 
   /* Button sizes */
-  button {
+  main button,
+  #mobile-menu button {
     width: 100%;
     min-height: 48px;
   }
@@ -332,7 +356,11 @@ header > div:nth-child(2) {
 @media (min-width: 641px) and (max-width: 1024px) {
   /* Tablet adjustments */
   section {
-    padding: 80px 40px !important;
+    padding: 50px 40px !important;
+  }
+
+  section#hero {
+    padding: 60px 40px !important;
   }
 
   .about-grid,
@@ -340,7 +368,7 @@ header > div:nth-child(2) {
   .transformations-grid,
   .contact-grid,
   .experience-grid {
-    gap: 40px !important;
+    gap: 32px !important;
   }
 
   /* Stat badges positioning for tablet */
@@ -352,6 +380,6 @@ header > div:nth-child(2) {
 @media (min-width: 1025px) {
   /* Desktop - keep as is */
   section {
-    padding: 120px 60px !important;
+    padding: 60px 60px !important;
   }
 }

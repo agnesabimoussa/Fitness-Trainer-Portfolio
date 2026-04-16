@@ -32,7 +32,7 @@ export function IntroOverlay({ onComplete }) {
     >
       <div
         style={{
-          fontFamily: "Lexend, sans-serif",
+          fontFamily: "Montserrat, sans-serif",
           fontWeight: 900,
           fontSize: "clamp(28px, 6vw, 72px)",
           letterSpacing: "-0.02em",
@@ -51,7 +51,7 @@ export function IntroOverlay({ onComplete }) {
       </div>
       <div
         style={{
-          fontFamily: "Manrope, sans-serif",
+          fontFamily: "Inter, sans-serif",
           fontWeight: 600,
           fontSize: "clamp(10px, 1.5vw, 13px)",
           letterSpacing: "0.5em",
@@ -62,7 +62,7 @@ export function IntroOverlay({ onComplete }) {
           transition: "opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s",
         }}
       >
-        Fitness Coach
+        Fitness Coach and Athlete
       </div>
 
       {/* Loading bar */}

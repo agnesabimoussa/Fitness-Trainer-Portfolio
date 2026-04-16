@@ -1,10 +1,11 @@
 import { useState } from "react";
 import { COLORS } from "../constants/colors";
 import { useInView } from "../hooks/useInView";
+import { useIsMobile } from "../hooks/useMediaQuery";
 
 export function Contact() {
   const [ref, inView] = useInView();
-  const isMobile = window.innerWidth < 768;
+  const isMobile = useIsMobile();
   const [formState, setFormState] = useState({
     name: "",
     email: "",
@@ -12,10 +13,46 @@ export function Contact() {
     message: "",
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
+    if (submitting) return;
+
+    setSubmitting(true);
+    setSubmitError("");
+
+    try {
+      // Uses FormSubmit (third-party) to deliver form contents to the coach's inbox
+      // without opening the visitor's email client.
+      const endpoint = "https://formsubmit.co/ajax/dibal.abimoussa@hotmail.com";
+
+      const formData = new FormData();
+      formData.append("name", formState.name);
+      formData.append("email", formState.email);
+      formData.append("goal", formState.goal);
+      formData.append("message", formState.message);
+      formData.append("_subject", `New Coaching Inquiry — ${formState.name || "Website Visitor"}`);
+      formData.append("_template", "table");
+      formData.append("_captcha", "false");
+
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+
+      if (!res.ok) {
+        throw new Error("Submission failed");
+      }
+
+      setSubmitted(true);
+    } catch (err) {
+      setSubmitError("Something went wrong sending your message. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const inputStyle = {
@@ -38,13 +75,12 @@ export function Contact() {
       id="contact"
       ref={ref}
       style={{
-        background: COLORS.surface,
-        padding: isMobile ? "60px 24px" : "120px 60px",
+        background: "transparent",
+        borderTop: `1px solid rgba(72,72,71,0.18)`,
         position: "relative",
         overflow: "hidden",
       }}
     >
-      {/* BG accent */}
       <div
         style={{
           position: "absolute",
@@ -103,7 +139,23 @@ export function Contact() {
               border: `1px solid rgba(0,227,253,0.2)`,
             }}
           >
-            <div style={{ fontSize: 48, marginBottom: 20 }}>✓</div>
+            <div
+              aria-hidden="true"
+              style={{
+                width: 56,
+                height: 56,
+                margin: "0 auto 18px auto",
+                borderRadius: 16,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                background: "rgba(0,227,253,0.10)",
+                border: "1px solid rgba(0,227,253,0.22)",
+                boxShadow: "0 18px 44px rgba(0,0,0,0.30)",
+              }}
+            >
+              <span style={{ fontSize: 22, color: COLORS.secondary, fontWeight: 900, lineHeight: 1 }}>✓</span>
+            </div>
             <h3
               style={{
                 fontFamily: "Montserrat, sans-serif",
@@ -113,7 +165,7 @@ export function Contact() {
                 marginBottom: 12,
               }}
             >
-              Message Sent!
+              Thank you for your interest.
             </h3>
             <p
               style={{
@@ -122,7 +174,7 @@ export function Contact() {
                 color: COLORS.onSurfaceVariant,
               }}
             >
-              I'll be in touch within 24 hours. Get ready to train.
+              We will get in touch soon.
             </p>
           </div>
         ) : (
@@ -131,6 +183,23 @@ export function Contact() {
             style={{ display: "flex", flexDirection: "column", gap: 20 }}
             className="contact-grid"
           >
+            {submitError ? (
+              <div
+                style={{
+                  padding: "14px 16px",
+                  borderRadius: 12,
+                  background: "rgba(255,255,255,0.03)",
+                  border: "1px solid rgba(255,255,255,0.08)",
+                  color: COLORS.onSurfaceVariant,
+                  fontFamily: "Inter, sans-serif",
+                  fontSize: 13,
+                  lineHeight: 1.5,
+                }}
+              >
+                {submitError}
+              </div>
+            ) : null}
+
             <div>
               <label
                 style={{
@@ -149,23 +218,22 @@ export function Contact() {
               </label>
               <input
                 type="text"
-                placeholder="Alex Mercer"
                 required
                 value={formState.name}
-                onChange={(e) =>
-                  setFormState({ ...formState, name: e.target.value })
-                }
+                onChange={(e) => setFormState({ ...formState, name: e.target.value })}
                 style={inputStyle}
-                onFocus={(e) =>
-                  (e.target.style.borderBottomColor = COLORS.primary)
-                }
-                onBlur={(e) =>
-                  (e.target.style.borderBottomColor = "transparent")
-                }
+                onFocus={(e) => (e.target.style.borderBottomColor = COLORS.primary)}
+                onBlur={(e) => (e.target.style.borderBottomColor = "transparent")}
               />
             </div>
 
-            <div style={{ display: "grid", gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr", gap: 16 }}>
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+                gap: 16,
+              }}
+            >
               <div>
                 <label
                   style={{
@@ -184,21 +252,15 @@ export function Contact() {
                 </label>
                 <input
                   type="email"
-                  placeholder="alex@apex.com"
                   required
                   value={formState.email}
-                  onChange={(e) =>
-                    setFormState({ ...formState, email: e.target.value })
-                  }
+                  onChange={(e) => setFormState({ ...formState, email: e.target.value })}
                   style={inputStyle}
-                  onFocus={(e) =>
-                    (e.target.style.borderBottomColor = COLORS.primary)
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderBottomColor = "transparent")
-                  }
+                  onFocus={(e) => (e.target.style.borderBottomColor = COLORS.primary)}
+                  onBlur={(e) => (e.target.style.borderBottomColor = "transparent")}
                 />
               </div>
+
               <div>
                 <label
                   style={{
@@ -217,21 +279,16 @@ export function Contact() {
                 </label>
                 <select
                   value={formState.goal}
-                  onChange={(e) =>
-                    setFormState({ ...formState, goal: e.target.value })
-                  }
+                  onChange={(e) => setFormState({ ...formState, goal: e.target.value })}
                   style={{ ...inputStyle, appearance: "none", cursor: "pointer" }}
-                  onFocus={(e) =>
-                    (e.target.style.borderBottomColor = COLORS.primary)
-                  }
-                  onBlur={(e) =>
-                    (e.target.style.borderBottomColor = "transparent")
-                  }
+                  onFocus={(e) => (e.target.style.borderBottomColor = COLORS.primary)}
+                  onBlur={(e) => (e.target.style.borderBottomColor = "transparent")}
                 >
                   <option>Strength Gain</option>
                   <option>Fat Loss</option>
                   <option>Athletic Performance</option>
                   <option>Mobility & Recovery</option>
+                  <option>Other</option>
                 </select>
               </div>
             </div>
@@ -253,24 +310,18 @@ export function Contact() {
                 Message
               </label>
               <textarea
-                placeholder="How can I help you reach Apex Form?"
                 rows={4}
                 value={formState.message}
-                onChange={(e) =>
-                  setFormState({ ...formState, message: e.target.value })
-                }
+                onChange={(e) => setFormState({ ...formState, message: e.target.value })}
                 style={{ ...inputStyle, resize: "vertical" }}
-                onFocus={(e) =>
-                  (e.target.style.borderBottomColor = COLORS.primary)
-                }
-                onBlur={(e) =>
-                  (e.target.style.borderBottomColor = "transparent")
-                }
+                onFocus={(e) => (e.target.style.borderBottomColor = COLORS.primary)}
+                onBlur={(e) => (e.target.style.borderBottomColor = "transparent")}
               />
             </div>
 
             <button
               type="submit"
+              disabled={submitting}
               style={{
                 width: "100%",
                 background: `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDim})`,
@@ -287,8 +338,10 @@ export function Contact() {
                 boxShadow: `0 20px 60px ${COLORS.primary}30`,
                 transition: "transform 0.3s ease, box-shadow 0.3s ease",
                 marginTop: 8,
+                opacity: submitting ? 0.7 : 1,
               }}
               onMouseEnter={(e) => {
+                if (submitting) return;
                 e.target.style.transform = "scale(1.08) translateY(-3px)";
                 e.target.style.boxShadow = `0 28px 60px ${COLORS.primary}50`;
               }}
@@ -297,7 +350,7 @@ export function Contact() {
                 e.target.style.boxShadow = `0 20px 60px ${COLORS.primary}30`;
               }}
             >
-              Send Message
+              {submitting ? "Sending..." : "Send Message"}
             </button>
           </form>
         )}
