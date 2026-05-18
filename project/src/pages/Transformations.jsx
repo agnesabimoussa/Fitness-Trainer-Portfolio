@@ -2,20 +2,16 @@ import { COLORS } from "../constants/colors";
 import { useIsMobile } from "../hooks/useMediaQuery";
 import { TRANSFORMATIONS_DIRECTORY } from "../constants/transformations";
 import { TransformationCard } from "../components/TransformationCard";
+import { Section } from "../components/layout/Section";
+import { Container } from "../components/layout/Container";
 
 export function Transformations() {
   const transformations = TRANSFORMATIONS_DIRECTORY;
   const isMobile = useIsMobile();
 
   return (
-    <section
-      id="transformations"
-      style={{
-        background: "transparent",
-        borderTop: `1px solid rgba(72,72,71,0.18)`,
-      }}
-    >
-      <div style={{ maxWidth: 1100, width: "100%", margin: "0 auto" }}>
+    <Section id="transformations">
+      <Container>
         <div style={{ textAlign: "center", marginBottom: isMobile ? 40 : 64 }}>
           {/* <p
             style={{
@@ -68,7 +64,7 @@ export function Transformations() {
         >
           {transformations.length} transformations shown - Results are individual and may vary
         </p> */}
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

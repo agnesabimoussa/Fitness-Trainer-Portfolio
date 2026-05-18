@@ -2,6 +2,9 @@ import { useMemo, useState } from "react";
 import { COLORS } from "../constants/colors";
 import { useInView } from "../hooks/useInView";
 import { useIsMobile } from "../hooks/useMediaQuery";
+import { Section } from "../components/layout/Section";
+import { Container } from "../components/layout/Container";
+import { BRAND_DEALS } from "../constants/content/brandDeals";
 
 export function BrandDeals() {
   const [ref, inView] = useInView();
@@ -9,23 +12,16 @@ export function BrandDeals() {
   const [copiedId, setCopiedId] = useState(null);
 
   const deals = useMemo(
-    () => [
-      {
-        id: "1",
-        brand: "Project Primal",
-        perk: "10% off your order",
-        code: "DibalM10",
-        href: "https://project-primal.com/en-lb?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcARN-HpleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAafVcIIN8PkoNxXDnh7V7zMkxC0_qChqymjHm6qon4ppG7eCbhINXItJW7JZHA_aem_5RpKrx9tOVsHXJo-e2KNIg",
-        accent: `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDim})`,
-      },
-      {
-        id: "2",
-        brand: "Metal Gainz",
-        perk: "10% off supplements",
-        code: "DibalM10",
-        href: "https://metalgainz.com/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAb21jcARN-LNleHRuA2FlbQIxMQBzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAaf6ck425SZZosx9bvP4eoa6pTxep0NXiEz7d0gQ5vp0p3ueCo9wDjGiSfFQSA_aem_7J3X-o-7Siv8IgnpZ4JM3g",
-        accent: `linear-gradient(135deg, ${COLORS.secondary}, ${COLORS.primary})`,
-      }], []);
+    () =>
+      BRAND_DEALS.map((deal) => ({
+        ...deal,
+        accent:
+          deal.accentKind === "secondary"
+            ? `linear-gradient(135deg, ${COLORS.secondary}, ${COLORS.primary})`
+            : `linear-gradient(135deg, ${COLORS.primary}, ${COLORS.primaryDim})`,
+      })),
+    []
+  );
 
   const copyCode = async (deal) => {
     try {
@@ -39,16 +35,7 @@ export function BrandDeals() {
   };
 
   return (
-    <section
-      id="brand-deals"
-      ref={ref}
-      style={{
-        background: "transparent",
-        borderTop: `1px solid rgba(72,72,71,0.18)`,
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <Section id="brand-deals" sectionRef={ref} style={{ position: "relative", overflow: "hidden" }}>
       <div
         style={{
           position: "absolute",
@@ -59,10 +46,8 @@ export function BrandDeals() {
         }}
       />
 
-      <div
+      <Container
         style={{
-          maxWidth: 1100,
-          margin: "0 auto",
           position: "relative",
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(36px)",
@@ -307,7 +292,7 @@ export function BrandDeals() {
         >
           Deals and codes are placeholders for now. You can replace them anytime.
         </p> */}
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

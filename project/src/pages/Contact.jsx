@@ -2,6 +2,8 @@ import { useState } from "react";
 import { COLORS } from "../constants/colors";
 import { useInView } from "../hooks/useInView";
 import { useIsMobile } from "../hooks/useMediaQuery";
+import { Section } from "../components/layout/Section";
+import { Container } from "../components/layout/Container";
 
 export function Contact() {
   const [ref, inView] = useInView();
@@ -26,7 +28,7 @@ export function Contact() {
     try {
       // Uses FormSubmit (third-party) to deliver form contents to the coach's inbox
       // without opening the visitor's email client.
-      const endpoint = "https://formsubmit.co/ajax/dibal.abimoussa@hotmail.com";
+      const endpoint = "https://formsubmit.co/ajax/dibalabimoussa65@gmail.com";
 
       const formData = new FormData();
       formData.append("name", formState.name);
@@ -71,16 +73,7 @@ export function Contact() {
   };
 
   return (
-    <section
-      id="contact"
-      ref={ref}
-      style={{
-        background: "transparent",
-        borderTop: `1px solid rgba(72,72,71,0.18)`,
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
+    <Section id="contact" sectionRef={ref} style={{ position: "relative", overflow: "hidden" }}>
       <div
         style={{
           position: "absolute",
@@ -93,10 +86,9 @@ export function Contact() {
         }}
       />
 
-      <div
+      <Container
+        maxWidth={580}
         style={{
-          maxWidth: 580,
-          margin: "0 auto",
           position: "relative",
           opacity: inView ? 1 : 0,
           transform: inView ? "translateY(0)" : "translateY(40px)",
@@ -354,7 +346,7 @@ export function Contact() {
             </button>
           </form>
         )}
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

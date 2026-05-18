@@ -2,25 +2,17 @@ import { COLORS } from "../constants/colors";
 import { useInView } from "../hooks/useInView";
 import { useIsMobile } from "../hooks/useMediaQuery";
 import { StatBadge } from "../components/StatBadge";
+import { Section } from "../components/layout/Section";
+import { Container } from "../components/layout/Container";
 
 export function About() {
   const [ref, inView] = useInView();
   const isMobile = useIsMobile();
 
   return (
-    <section
-      id="about"
-      ref={ref}
-      style={{
-        background: "transparent",
-        borderTop: `1px solid rgba(72,72,71,0.18)`,
-      }}
-    >
-      <div
+    <Section id="about" sectionRef={ref}>
+      <Container
         style={{
-          maxWidth: 1100,
-          width: "100%",
-          margin: "0 auto",
           display: "grid",
           gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
           gap: isMobile ? 40 : 72,
@@ -279,7 +271,7 @@ export function About() {
             Work With Me
           </button>
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }

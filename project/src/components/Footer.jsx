@@ -1,5 +1,6 @@
 import { COLORS } from "../constants/colors";
 import { useIsMobile } from "../hooks/useMediaQuery";
+import { Container } from "./layout/Container";
 
 export function Footer() {
   const isMobile = useIsMobile();
@@ -12,7 +13,7 @@ export function Footer() {
         borderTop: `1px solid rgba(72,72,71,0.18)`,
       }}
     >
-      <div style={{ maxWidth: 1100, width: "100%", margin: "0 auto" }}>
+      <Container>
         <div
           style={{
             display: "flex",
@@ -185,7 +186,7 @@ export function Footer() {
             Back to top
           </button>
         </div>
-      </div>
+      </Container>
     </footer>
   );
 }

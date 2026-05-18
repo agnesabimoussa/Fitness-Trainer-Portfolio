@@ -2,60 +2,17 @@ import { COLORS } from "../constants/colors";
 import { useInView } from "../hooks/useInView";
 import { useIsMobile } from "../hooks/useMediaQuery";
 import { ExpertiseCard } from "../components/ExpertiseCard";
+import { Section } from "../components/layout/Section";
+import { Container } from "../components/layout/Container";
+import { EXPERTISE_ITEMS } from "../constants/content/expertise";
 
 export function Expertise() {
   const [ref, inView] = useInView();
   const isMobile = useIsMobile();
 
-  const items = [
-    {
-      icon: "01",
-      title: "Strength & Conditioning",
-      description:
-        "Build strength that carries over. Progressive programming for power, performance, and long-term resilience.",
-    },
-    {
-      icon: "02",
-      title: "Post Rehabilitation",
-      description:
-        "Return to training with confidence. Smart progressions that respect injuries, limitations, and movement quality.",
-    },
-    {
-      icon: "03",
-      title: "Weight Training",
-      description:
-        "Technique-first lifting with structure. Hypertrophy, strength, and consistency without guesswork.",
-    },
-    {
-      icon: "04",
-      title: "Calisthenics",
-      description:
-        "Master control and bodyweight strength. Pull-ups, dips, levers, and clean movement patterns built step by step.",
-    },
-    {
-      icon: "05",
-      title: "Pre / Postnatal Specialist",
-      description:
-        "Supportive, safe training through every phase. Strength, posture, and core work tailored to your needs.",
-    },
-    {
-      icon: "06",
-      title: "Sports Nutrition",
-      description:
-        "Fuel for performance and physique. Simple nutrition systems that fit your lifestyle and training demands.",
-    },
-  ];
-
   return (
-    <section
-      id="expertise"
-      ref={ref}
-      style={{
-        background: "transparent",
-        borderTop: `1px solid rgba(72,72,71,0.18)`,
-      }}
-    >
-      <div style={{ maxWidth: 1100, width: "100%", margin: "0 auto" }}>
+    <Section id="expertise" sectionRef={ref}>
+      <Container>
         <h2
           style={{
             fontFamily: "Montserrat, sans-serif",
@@ -85,11 +42,11 @@ export function Expertise() {
           }}
           className="expertise-grid"
         >
-          {items.map((item, i) => (
+          {EXPERTISE_ITEMS.map((item, i) => (
             <ExpertiseCard key={i} {...item} />
           ))}
         </div>
-      </div>
-    </section>
+      </Container>
+    </Section>
   );
 }
