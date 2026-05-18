@@ -17,6 +17,15 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [submitDebug, setSubmitDebug] = useState("");
+
+  const recipient = process.env.REACT_APP_CONTACT_TO || "dibalabimoussa65@gmail.com";
+  const apiUrl = process.env.REACT_APP_CONTACT_API_URL || "/api/contact";
+  const mailtoHref = `mailto:${encodeURIComponent(recipient)}?subject=${encodeURIComponent(
+    "New Coaching Inquiry"
+  )}&body=${encodeURIComponent(
+    `Name: ${formState.name}\nEmail: ${formState.email}\nGoal: ${formState.goal}\n\n${formState.message}`
+  )}`;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -24,34 +33,41 @@ export function Contact() {
 
     setSubmitting(true);
     setSubmitError("");
+    setSubmitDebug("");
 
     try {
-      // Uses FormSubmit (third-party) to deliver form contents to the coach's inbox
-      // without opening the visitor's email client.
-      const endpoint = "https://formsubmit.co/ajax/dibalabimoussa65@gmail.com";
-
-      const formData = new FormData();
-      formData.append("name", formState.name);
-      formData.append("email", formState.email);
-      formData.append("goal", formState.goal);
-      formData.append("message", formState.message);
-      formData.append("_subject", `New Coaching Inquiry — ${formState.name || "Website Visitor"}`);
-      formData.append("_template", "table");
-      formData.append("_captcha", "false");
-
-      const res = await fetch(endpoint, {
+      const res = await fetch(apiUrl, {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formState.name,
+          email: formState.email,
+          goal: formState.goal,
+          message: formState.message,
+        }),
       });
 
-      if (!res.ok) {
-        throw new Error("Submission failed");
+      let payload = null;
+      try {
+        payload = await res.json();
+      } catch {
+        // Ignore JSON parse failures; fall back to status handling.
       }
+
+      if (!res.ok) {
+        const detail = payload?.message || payload?.error || "Submission failed";
+        throw new Error(detail);
+      }
+
+      if (payload && payload.ok === false) throw new Error(payload.error || "Submission failed");
 
       setSubmitted(true);
     } catch (err) {
       setSubmitError("Something went wrong sending your message. Please try again.");
+      if (err?.message) setSubmitDebug(err.message);
     } finally {
       setSubmitting(false);
     }
@@ -166,7 +182,7 @@ export function Contact() {
                 color: COLORS.onSurfaceVariant,
               }}
             >
-              We will get in touch soon.
+              We will get in touch soon. If you don't hear back, please check your spam folder or reach out on social.
             </p>
           </div>
         ) : (
@@ -189,6 +205,24 @@ export function Contact() {
                 }}
               >
                 {submitError}
+                {submitDebug ? (
+                  <div style={{ marginTop: 8, opacity: 0.8, fontSize: 12, wordBreak: "break-word" }}>
+                    {submitDebug}
+                  </div>
+                ) : null}
+                <a
+                  href={mailtoHref}
+                  style={{
+                    display: "inline-block",
+                    marginTop: 10,
+                    fontSize: 12,
+                    color: COLORS.primary,
+                    textDecoration: "none",
+                    letterSpacing: "0.02em",
+                  }}
+                >
+                  Or email us directly
+                </a>
               </div>
             ) : null}
 
