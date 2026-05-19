@@ -99,3 +99,23 @@ npm build
 ```bash
 npm test
 ```
+
+---
+
+## Contact Form Email Delivery (Vercel + Resend)
+
+The deployed site sends contact emails via a Vercel Serverless Function using Resend.
+
+- If your Vercel Root Directory is the repo root, the function is `api/contact.js`.
+- If your Vercel Root Directory is `project`, the function is `project/api/contact.js`.
+
+### Required environment variables (set in Vercel)
+- `RESEND_API_KEY`
+- `CONTACT_FROM` (must be a sender you’ve verified in Resend, e.g. `contact@yourdomain.com`)
+
+### Optional environment variables
+- `CONTACT_TO` (defaults to `dibalabimoussa65@gmail.com`)
+- `REACT_APP_CONTACT_TO` (used only for the UI mailto fallback; can match `CONTACT_TO`)
+- `REACT_APP_CONTACT_API_URL` (defaults to `/api/contact`)
+
+See `project/.env.example`.

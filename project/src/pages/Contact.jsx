@@ -17,7 +17,6 @@ export function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [submitDebug, setSubmitDebug] = useState("");
 
   const recipient = process.env.REACT_APP_CONTACT_TO || "dibalabimoussa65@gmail.com";
   const apiUrl = process.env.REACT_APP_CONTACT_API_URL || "/api/contact";
@@ -33,7 +32,6 @@ export function Contact() {
 
     setSubmitting(true);
     setSubmitError("");
-    setSubmitDebug("");
 
     try {
       const res = await fetch(apiUrl, {
@@ -67,7 +65,10 @@ export function Contact() {
       setSubmitted(true);
     } catch (err) {
       setSubmitError("Something went wrong sending your message. Please try again.");
-      if (err?.message) setSubmitDebug(err.message);
+      if (process.env.NODE_ENV !== "production") {
+        // eslint-disable-next-line no-console
+        console.error("Contact form submission failed:", err);
+      }
     } finally {
       setSubmitting(false);
     }
@@ -205,11 +206,6 @@ export function Contact() {
                 }}
               >
                 {submitError}
-                {submitDebug ? (
-                  <div style={{ marginTop: 8, opacity: 0.8, fontSize: 12, wordBreak: "break-word" }}>
-                    {submitDebug}
-                  </div>
-                ) : null}
                 <a
                   href={mailtoHref}
                   style={{
